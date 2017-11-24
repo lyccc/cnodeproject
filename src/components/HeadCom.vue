@@ -33,7 +33,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-	background: #324057;
+	background: #444;
   /* height: 50px; */
 }	
 .logo-box{

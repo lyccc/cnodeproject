@@ -8,10 +8,11 @@ import baiduMap from 'vue-baidu-map'
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+
+import utils from './utils/index.js'
 Vue.use(ElementUI)
 Vue.prototype.$http = axios
-
-
+Vue.prototype.$utils = utils
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) {
   // 在发送请求之前做些什么

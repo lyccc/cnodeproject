@@ -1,29 +1,21 @@
 <template>
 	<div id="contain" class="contain">
 		<div class="pane-list">
-			<a href="####" class="ative">全部</a>
-			<a href="####">精华</a>
-			<a href="####">分享</a>
-			<a href="####">问答</a>
-			<a href="####">招聘</a>
-			<a href="####">客户端测试</a>
+			<a v-for="(item,index) in paneList" href="javascript:;" :class="{ative: index == tabIndex}" @click="topicsTab(item.tab, index)">{{item.title}}</a>
 		</div>
 		<ul>
 			<li v-for="(item, index) in resData" :key="item.id">
 				<div class="person-info">
 					<img :src='item.author.avatar_url' :title='item.author.loginname'/>
-					<!-- <span>{{item.author.loginname}}</span> -->
-				</div>
-				<div class="reply">
-					<span class="reply-count">{{item.reply_count}}</span>/<span class="visit-count">{{item.visit_count}}</span>
-				</div>
-				<div class="title-info">
-					<div>
-						<router-link class="list-title" :to="{name:'Details',params:{id:item.id}}">[{{item.title}}]</router-link>
+					<div class="reply">
+						<span class="reply-count">{{item.reply_count}}</span>/<span class="visit-count">{{item.visit_count}}</span>
 					</div>
-					<!-- <div class="create-time">
-						创建于: {{item.create_at}}
-					</div> -->
+					<div class="title-info">				
+						<router-link class="list-title" :to="{name:'Details',params:{id:item.id}}">[{{item.title}}]</router-link>
+					</div>					
+				</div>				
+				<div class="create-time">
+						{{$utils.goodTime(item.create_at)}}
 				</div>
 				
 			</li>
@@ -39,9 +31,19 @@ export default {
     return {
       resData: [],		
       msg: 'Welcome',
-	  limit: 0,
+	  limit: 10,
 	  loadingInstance: '',
-	  scrollWatch: true
+	  scrollWatch: true,
+	  tab: 'all',
+	  tabIndex: 0,
+	  paneList:[
+		  {title: '全部',tab: 'all'},
+		  {title: '精华',tab: 'good'},
+		  {title: '分享',tab: 'share'},
+		  {title: '问答',tab: 'ask'},
+		  {title: '招聘',tab: 'job'},
+		  {title: '客户端测试',tab: 'dev'}
+	  ]
     }
   },
   created: function() {
@@ -65,7 +67,7 @@ export default {
   		getData() {
   			this.limit += 10;
   			this.$http({
-                url: 'https://cnodejs.org/api/v1/topics',
+                url: 'https://cnodejs.org/api/v1/topics?tab='+this.tab,
                 method: 'get',
                 params: {
                     page: 1,
@@ -127,6 +129,14 @@ export default {
 			　　　　windowHeight = document.body.clientHeight;
 			　　}
 			　　return windowHeight;
+		},
+		topicsTab(tabs, tabIndex) {
+			
+			this.tab = tabs
+			this.limit = 0
+			this.tabIndex = tabIndex
+			this.getData();
+			console.log(this.tab)
 		}
   },
   destroyed: function() {
@@ -158,12 +168,13 @@ export default {
 }
 .contain ul li{
 	display: flex;
+	justify-content: space-between;
+	align-items: center;
 	padding: 1rem;
 	border-bottom: 1px solid #ccc;
 }
 .person-info{
 	display: flex;
-	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 }
@@ -186,13 +197,11 @@ export default {
 	color: #b4b4b4;
 }
 .title-info{
-	display: flex;
 	align-items: center;
 }
 
 .create-time{
-	font-size: 14px;
+	font-size: 12px;
+	color: #778087;
 }
-
-
 </style>
