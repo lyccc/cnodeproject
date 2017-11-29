@@ -2,13 +2,13 @@
 	<div class="header">
     <div class="logo-box">
         <img class="logo-1" src="../assets/logo-1.svg"/>
-        <div class="search"><input type="text"></div>	     
+        <!-- <div class="search"><input type="text"></div> -->
     </div>
     <nav class="nav">
-      <a href="####">首页</a>
-      <a href="####">新手入门</a>
-      <a href="####">API</a>
-      <a href="####">关于</a>
+       <router-link :to="{path: '/'}">首页</router-link>
+      <a href="https://cnodejs.org/getstart" target="_blank">新手入门</a>
+      <a href="https://cnodejs.org/api" target="_blank">API</a>
+      <a href="https://cnodejs.org/about" target="_blank">关于</a>
       <a href="####">注册</a>
       <router-link :to="{name: 'Login'}">登录</router-link>
     </nav>  

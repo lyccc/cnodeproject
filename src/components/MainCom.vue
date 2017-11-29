@@ -57,7 +57,7 @@ export default {
   	window.addEventListener('scroll', () => {
 		  	if (this.scrollWatch) {
 				  this.listenSrcoll()	
-				  console.log(123)			  
+				//   console.log(123)			  
 		 	}
 		  
 	  })

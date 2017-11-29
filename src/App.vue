@@ -1,17 +1,19 @@
 <template>
   <div id="app" v-cloak>
 		<HeadCom></HeadCom>
+    <BackTop></BackTop>
     <router-view/>
   </div>
 </template>
 
 <script>
 import HeadCom from './components/HeadCom';
-
+import BackTop from './components/BackTop'
 export default {
   name: 'app',
 	components: {
-        HeadCom
+        HeadCom,
+        BackTop
   }	
 }
 </script>
@@ -27,6 +29,7 @@ export default {
 }
 body{
   background-color: #e1e1e1;
+  min-width: 770px;
 }
 img{
   max-width: 100%;
